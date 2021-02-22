@@ -32,3 +32,5 @@ OS generated
 ehthumbs.db
 Thumbs.db
 Logs/
+AndroidProject/unityLibrary/build/
+AndroidProject/launcher/build/

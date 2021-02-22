@@ -1,22 +1,22 @@
 [
     {
-        "merged": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_foreground.png.flat",
-        "source": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.png"
+        "merged": "D:\\github\\Unity\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_app_icon.png.flat",
+        "source": "D:\\github\\Unity\\AndroidProject\\launcher\\src\\main\\res\\mipmap-mdpi\\app_icon.png"
     },
     {
-        "merged": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_app_icon.png.flat",
-        "source": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\src\\main\\res\\mipmap-mdpi\\app_icon.png"
+        "merged": "D:\\github\\Unity\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_background.png.flat",
+        "source": "D:\\github\\Unity\\AndroidProject\\launcher\\src\\main\\res\\mipmap-mdpi\\ic_launcher_background.png"
     },
     {
-        "merged": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_background.png.flat",
-        "source": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\src\\main\\res\\mipmap-mdpi\\ic_launcher_background.png"
+        "merged": "D:\\github\\Unity\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_app_icon.xml.flat",
+        "source": "D:\\github\\Unity\\AndroidProject\\launcher\\src\\main\\res\\mipmap-anydpi-v26\\app_icon.xml"
     },
     {
-        "merged": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_app_icon_round.xml.flat",
-        "source": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\src\\main\\res\\mipmap-anydpi-v26\\app_icon_round.xml"
+        "merged": "D:\\github\\Unity\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "D:\\github\\Unity\\AndroidProject\\launcher\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_app_icon.xml.flat",
-        "source": "D:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\src\\main\\res\\mipmap-anydpi-v26\\app_icon.xml"
+        "merged": "D:\\github\\Unity\\AndroidProject\\launcher\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_app_icon_round.xml.flat",
+        "source": "D:\\github\\Unity\\AndroidProject\\launcher\\src\\main\\res\\mipmap-anydpi-v26\\app_icon_round.xml"
     }
 ]

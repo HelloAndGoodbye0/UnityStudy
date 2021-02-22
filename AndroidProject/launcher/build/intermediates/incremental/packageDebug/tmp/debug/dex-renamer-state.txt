@@ -1,4 +1,4 @@
-#Mon Feb 22 12:06:21 CST 2021
-base.0=D\:\\github\\unitystudy\\Test\\AndroidProject\\launcher\\build\\intermediates\\dex\\debug\\out\\classes.dex
+#Mon Feb 22 13:01:49 CST 2021
+base.0=D\:\\github\\Unity\\AndroidProject\\launcher\\build\\intermediates\\dex\\debug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
