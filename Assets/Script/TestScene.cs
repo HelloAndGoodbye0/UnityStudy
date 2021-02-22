@@ -15,12 +15,22 @@ public class TestScene : MonoBehaviour
         Debug.Log("TestScene===Start");
 
         var btn1 = GameObject.Find("btn1");
+        var btn2 = GameObject.Find("btn2");
+        var image = GameObject.Find("Image");
 
         //按钮点击事件
         btn1.GetComponent<Button>().onClick.AddListener(delegate() {
 
-            Debug.Log("66");
+            Debug.Log("btn1");
             StartCoroutine(GetRequest());
+        });
+
+        //图片切换
+        btn2.GetComponent<Button>().onClick.AddListener(delegate () {
+
+            Debug.Log("btn2");
+            Sprite sprite = Resources.Load("ic_launcher", typeof(Sprite)) as Sprite;
+            image.GetComponent<Image>().sprite = sprite;
         });
     }
 
