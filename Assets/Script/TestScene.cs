@@ -1,7 +1,6 @@
-using Newtonsoft.Json;
+
 using Newtonsoft.Json.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 
 public class TestScene : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //Start is called before the first frame update
     void Start()
     {
 
@@ -17,11 +16,10 @@ public class TestScene : MonoBehaviour
 
         var btn1 = GameObject.Find("btn1");
 
-        //°´Å¥µã»÷ÊÂ¼ş
+        //æŒ‰é’®ç‚¹å‡»äº‹ä»¶
         btn1.GetComponent<Button>().onClick.AddListener(delegate() {
 
             Debug.Log("66");
-            //GetRequest();
             StartCoroutine(GetRequest());
         });
     }
@@ -34,28 +32,28 @@ public class TestScene : MonoBehaviour
 
     public IEnumerator GetRequest()
     {
-        // ÇëÇóµÄ url
-        string url = "http://lee.free.vipnps.vip/hotupversion/configrelease";//ÄãÒªÇëÇóµÄurlµØÖ·
-        // ÊÇÊ²Ã´ÇëÇó¾Íµ÷ÓÃÊ²Ã´·½·¨£¬Èç¹ûÊÇ post/put ·½·¨£¬»¹ĞèÒª´«µİÒ»¸ö string ÀàĞÍµÄÊı¾İ
-        // ¿ÉÒÔÓÃ JSON ¹¤¾ßÀà½«¶ÔÏó·â×°³É JSON
+        // è¯·æ±‚çš„ url
+        string url = "http://lee.free.vipnps.vip/hotupversion/configrelease";//ä½ è¦è¯·æ±‚çš„urlåœ°å€
+        //æ˜¯ä»€ä¹ˆè¯·æ±‚å°±è°ƒç”¨ä»€ä¹ˆæ–¹æ³•ï¼Œå¦‚æœæ˜¯ post/put æ–¹æ³•ï¼Œè¿˜éœ€è¦ä¼ é€’ä¸€ä¸ª string ç±»å‹çš„æ•°æ®
+        // ///å¯ä»¥ç”¨ JSON å·¥å…·ç±»å°†å¯¹è±¡å°è£…æˆ JSON
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
         {
 
             yield return webRequest.SendWebRequest();
 
-            // ³öÏÖÍøÂç´íÎó
-            if (webRequest.isHttpError || webRequest.isNetworkError)
+            // å‡ºç°ç½‘ç»œé”™è¯¯
+            if (webRequest.result == UnityWebRequest.Result.ProtocolError || webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
                 Debug.LogError(webRequest.error + "\n" + webRequest.downloadHandler.text);
             }
-            else// Õı³£´¦Àí
+            else// æ­£å¸¸å¤„ç†
             {
-                // »ñÈ¡µ½µÄÊı¾İ
+                // è·å–åˆ°çš„æ•°æ®
                 string jsonText = webRequest.downloadHandler.text;
                 //Debug.Log(jsonText);
 
 
-                //json ½âÎö
+                //json è§£æ
                 JObject obj = JObject.Parse(jsonText);
                 Debug.Log(obj["scriptVersion"]);
 
