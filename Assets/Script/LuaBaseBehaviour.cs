@@ -11,13 +11,12 @@ using System.Collections;
 using System.Collections.Generic;
 using XLua;
 using System;
-
-
+using System.IO;
 
 public class LuaBaseBehaviour : MonoBehaviour
 {
     public string luaScriptName;
-    public TextAsset luaScript;
+    //public TextAsset luaScript;
 
     internal LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
@@ -35,6 +34,23 @@ public class LuaBaseBehaviour : MonoBehaviour
 
     private LuaTable scriptEnv;
 
+
+    //自定义Load
+      byte[] CustomMyLoader(ref string flie)
+    {
+        string fliePath = "";
+        if (Application.platform == RuntimePlatform.WindowsEditor)//win 编辑器
+        {
+            fliePath = Application.dataPath + "/Script/lua/" + flie + ".lua.txt";
+        }
+        else//原生
+        {
+            fliePath = Application.persistentDataPath + "/Script/lua/" + flie + ".lua.txt";
+        }
+
+        return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(fliePath));
+    }
+
     void Awake()
     {
         scriptEnv = luaEnv.NewTable();
@@ -47,8 +63,12 @@ public class LuaBaseBehaviour : MonoBehaviour
 
         scriptEnv.Set("self", this);
 
-        //luaEnv.DoString(luaScriptName, luaScriptName, scriptEnv);
-        luaEnv.DoString(luaScript.text, "LuaTestScript", scriptEnv);
+        luaEnv.AddLoader(CustomMyLoader);
+
+
+        string flieName = string.Format("require'{0}'", luaScriptName);// + luaScriptName;
+        luaEnv.DoString(flieName, luaScriptName, scriptEnv);
+        //luaEnv.DoString(luaScript.text, "LuaTestScript", scriptEnv);
         //XluaCommon.Instance.DoString(luaScriptName, luaScriptName,scriptEnv);
 
         Action luaAwake = scriptEnv.Get<Action>("awake");
@@ -65,6 +85,9 @@ public class LuaBaseBehaviour : MonoBehaviour
             luaAwake();
         }
     }
+
+   
+
     void OnEnable()
     {
         if (luaOnEnable != null)
