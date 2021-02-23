@@ -585,7 +585,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   luaScriptName: TestScene
-  luaScript: {fileID: 4900000, guid: 6c8f2b0978e9cad4092f7c72d677d201, type: 3}
 --- !u!1 &1535602939
 GameObject:
   m_ObjectHideFlags: 0
