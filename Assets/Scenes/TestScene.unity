@@ -481,7 +481,6 @@ GameObject:
   - component: {fileID: 1153795226}
   - component: {fileID: 1153795225}
   - component: {fileID: 1153795229}
-  - component: {fileID: 1153795230}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -580,24 +579,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153795224}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5edd9a2ce5831f348b10948a31883851, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1153795230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153795224}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa0a2b795c8dc054ebf77f214f176c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaScript: {fileID: 4900000, guid: 6c8f2b0978e9cad4092f7c72d677d201, type: 3}
+  luaScriptName: TestScene
 --- !u!1 &1535602939
 GameObject:
   m_ObjectHideFlags: 0

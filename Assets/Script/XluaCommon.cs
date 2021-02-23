@@ -1,11 +1,12 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using XLua;
-using System.IO;
 
-public class XluaCommon
-{
+using System.IO;
+using UnityEngine;
+using XLua;
+
+public class XluaCommon {
+
+    public  LuaEnv lua_Env;
+
     private static XluaCommon _instance;
     public static XluaCommon Instance
     {
@@ -20,81 +21,40 @@ public class XluaCommon
 
     }
 
-    public LuaEnv luaEnv
-    {
-        private set;
-        get;
-    }
-
     public XluaCommon()
     {
-        luaEnv = new LuaEnv();
+        lua_Env = new LuaEnv();
 
-        luaEnv.AddLoader(CustomerLoader);
+        lua_Env.AddLoader(CustomerLoader);
     }
 
+    public  LuaEnv GetLuaEnv() {
+
+        return lua_Env;
+    
+    
+    }
     //自定义Load
     byte[] CustomerLoader(ref string flie)
     {
-        string fliePath = Application.dataPath + "/Script/lua/" + flie + ".lua.txt";
+        string fliePath = "";
+        if (Application.platform == RuntimePlatform.WindowsEditor)//win 编辑器
+        {
+            fliePath  = Application.dataPath + "/Script/lua/" + flie + ".lua.txt";
+        }
+        else//原生
+        {
+            fliePath = Application.persistentDataPath + "/Script/lua/" + flie + ".lua.txt";
+        }
+       
         return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(fliePath));
     }
 
-    //加载lua表
-    public void LoadLuaTable(string name)
-    {
-        if (string.IsNullOrEmpty(name))
-        {
-            Debug.Log("name is null");
-            return;
-        }
-        string flieName = string.Format("require'{0}'", name);
-        luaEnv.DoString(flieName);
-    }
-    //得到Lua表
-    public LuaTable GetLuaTable(string name, string Testid)
-    {
-        if (string.IsNullOrEmpty(name))
-        {
-            Debug.Log("name is null");
-            return null;
-        }
-        LuaTable table = luaEnv.Global.Get<LuaTable>(name);
-        if (table == null)
-        {
-            //加载
-            LoadLuaTable(name);
-            table = luaEnv.Global.Get<LuaTable>(name);
-        }
-        return table;
-    }
 
-    // delegate void test(int id);
+    public void DoString(string chunk, string chunkName = "chunk", LuaTable env = null) {
 
-    public void Dispose()
-    {
-
-        Dispose(true);
-    }
-    private void Dispose(bool isDispose)
-    {
-        if (isDispose)
-        {
-            if (luaEnv != null)
-            {
-                luaEnv.GC();
-                luaEnv.Dispose();
-            }
-        }
-        //置空
-        luaEnv = null;
-        _instance = null;
-    }
-
-    //回收
-    ~XluaCommon()
-    {
-        Dispose(false);
+        string flieName = string.Format("require'{0}'", chunk);
+        lua_Env.DoString(flieName, chunkName, env);
     }
 
 }

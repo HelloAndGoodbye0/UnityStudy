@@ -1,7 +1,7 @@
 
 
-function start()
-  print("lua ...start...")
+function Start()
+  print("Start...")
   local GameObject = CS.UnityEngine.GameObject
   local SpriteTool = CS.UnityEngine.SpriteTool
   local Color = CS.UnityEngine.Color
@@ -24,14 +24,41 @@ function start()
      
    end)
  
-       
+     SayHello()
 end
 
-function update()
-	
+function SayHello()
+  print("SayHello666")
 end
 
-function ondestroy()
-    print("lua destroy")
+function onDestroy()
+    print("onDestroy...")
 end
+
+
+function Awake()
+    print('Awake...')
+end
+
+function FixedUpdate()
+    --print('FixedUpdate')
+end
+
+function LateUpdate()
+    --print('LateUpdate')
+end
+
+function Update()
+    --print("update!")
+end
+
+function OnEnable()
+    print('OnEnable...')
+     
+end
+
+function onDisable()
+    print('OnDisable...')
+end
+
 
