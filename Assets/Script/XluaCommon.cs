@@ -5,7 +5,7 @@ using XLua;
 
 public class XluaCommon {
 
-    public  LuaEnv lua_Env;
+    public  LuaEnv lua_Env = null;
 
     private static XluaCommon _instance;
     public static XluaCommon Instance
@@ -55,6 +55,15 @@ public class XluaCommon {
 
         string flieName = string.Format("require'{0}'", chunk);
         lua_Env.DoString(flieName, chunkName, env);
+        lua_Env.Dispose();
     }
 
+
+    public void Dispose() {
+        if (lua_Env!= null)
+        {
+            lua_Env.Dispose();
+        }
+    
+    }
 }

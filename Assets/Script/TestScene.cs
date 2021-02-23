@@ -23,6 +23,7 @@ public class TestScene : MonoBehaviour
 
             Debug.Log("btn1");
             StartCoroutine(GetRequest());
+            StartCoroutine(DownloaAssetBundle());
         });
 
         //图片切换
@@ -38,6 +39,18 @@ public class TestScene : MonoBehaviour
     void Update()
     {
         
+    }
+
+    IEnumerator DownloaAssetBundle()
+    {
+        string uri = @"http://192.168.65.151/AssetBundles/Win32/test";//ab包路径
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(uri);//获取UnityWebReuest
+        yield return request.SendWebRequest();//等待获取完成
+        AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);//获取ab包
+        GameObject cube = bundle.LoadAsset<GameObject>("C_IM1");
+        
+        Instantiate(cube);
+    
     }
 
     public IEnumerator GetRequest()
