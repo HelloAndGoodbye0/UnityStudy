@@ -1,0 +1,37 @@
+
+
+function start()
+  print("lua ...start...")
+  local GameObject = CS.UnityEngine.GameObject
+  local SpriteTool = CS.UnityEngine.SpriteTool
+  local Color = CS.UnityEngine.Color
+
+  local btn1 = GameObject.Find("btn1");
+  local btn2 = GameObject.Find("btn2");
+  local image = GameObject.Find("Image");
+
+
+  btn1:GetComponent("Button").onClick:AddListener(function()
+    print("clicked, btn1",CS.UnityEngine.Color.blue)
+    btn1:GetComponent("Image").color = Color(1,0,0,1)
+  end)
+
+
+   btn2:GetComponent("Button").onClick:AddListener(function()
+     print("clicked, btn2")
+     local sprite = SpriteTool.ResourcesSprite("ic_launcher")
+     image:GetComponent("Image").sprite = sprite;
+     
+   end)
+ 
+       
+end
+
+function update()
+	
+end
+
+function ondestroy()
+    print("lua destroy")
+end
+
