@@ -36,8 +36,8 @@ function onDestroy()
 end
 
 
-function Awake()
-    print('Awake...')
+function awake()
+    print("awake...")
 end
 
 function FixedUpdate()

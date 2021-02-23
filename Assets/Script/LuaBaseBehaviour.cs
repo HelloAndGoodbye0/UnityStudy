@@ -14,12 +14,12 @@ using System;
 
 
 
-public class LuaBase : MonoBehaviour
+public class LuaBaseBehaviour : MonoBehaviour
 {
     public string luaScriptName;
+    public TextAsset luaScript;
 
-
-    internal LuaEnv luaEnv = XluaCommon.Instance.GetLuaEnv(); //new LuaEnv(); //all lua behaviour shared one luaenv only!
+    internal LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
     internal const float GCInterval = 1;//1 second 
 
@@ -48,10 +48,10 @@ public class LuaBase : MonoBehaviour
         scriptEnv.Set("self", this);
 
         //luaEnv.DoString(luaScriptName, luaScriptName, scriptEnv);
-        //luaEnv.DoString(luaScript.text, "LuaTestScript", scriptEnv);
-        XluaCommon.Instance.DoString(luaScriptName, luaScriptName,scriptEnv);
+        luaEnv.DoString(luaScript.text, "LuaTestScript", scriptEnv);
+        //XluaCommon.Instance.DoString(luaScriptName, luaScriptName,scriptEnv);
 
-        Action luaAwake = scriptEnv.Get<Action>("Awake");
+        Action luaAwake = scriptEnv.Get<Action>("awake");
         scriptEnv.Get("OnEnable", out luaOnEnable);
         scriptEnv.Get("Start", out luaStart);
         scriptEnv.Get("FixedUpdate", out luaFixedUpdate);
@@ -114,10 +114,10 @@ public class LuaBase : MonoBehaviour
         {
             luaUpdate();
         }
-        if (Time.time - LuaBase.lastGCTime > GCInterval)
+        if (Time.time - LuaBaseBehaviour.lastGCTime > GCInterval)
         {
             luaEnv.Tick();
-            LuaBase.lastGCTime = Time.time;
+            LuaBaseBehaviour.lastGCTime = Time.time;
         }
     }
 
