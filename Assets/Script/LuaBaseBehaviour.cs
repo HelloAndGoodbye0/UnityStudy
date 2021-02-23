@@ -18,7 +18,7 @@ public class LuaBaseBehaviour : MonoBehaviour
     public string luaScriptName;
     //public TextAsset luaScript;
 
-    internal LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
+    internal static LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
     internal const float GCInterval = 1;//1 second 
 
