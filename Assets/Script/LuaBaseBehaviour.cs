@@ -18,7 +18,7 @@ public class LuaBaseBehaviour : MonoBehaviour
     public string luaScriptName;
     //public TextAsset luaScript;
 
-    internal static LuaEnv luaEnv = new LuaEnv(); //all lua behaviour shared one luaenv only!
+    internal static LuaEnv lua_Env = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
     internal const float GCInterval = 1;//1 second 
 
@@ -53,21 +53,21 @@ public class LuaBaseBehaviour : MonoBehaviour
 
     void Awake()
     {
-        scriptEnv = luaEnv.NewTable();
+        scriptEnv = lua_Env.NewTable();
 
         // 为每个脚本设置一个独立的环境，可一定程度上防止脚本间全局变量、函数冲突
-        LuaTable meta = luaEnv.NewTable();
-        meta.Set("__index", luaEnv.Global);
+        LuaTable meta = lua_Env.NewTable();
+        meta.Set("__index", lua_Env.Global);
         scriptEnv.SetMetaTable(meta);
         meta.Dispose();
 
         scriptEnv.Set("self", this);
 
-        luaEnv.AddLoader(CustomMyLoader);
+        lua_Env.AddLoader(CustomMyLoader);
 
 
         string flieName = string.Format("require'{0}'", luaScriptName);// + luaScriptName;
-        luaEnv.DoString(flieName, luaScriptName, scriptEnv);
+        lua_Env.DoString(flieName, luaScriptName, scriptEnv);
         //luaEnv.DoString(luaScript.text, "LuaTestScript", scriptEnv);
         //XluaCommon.Instance.DoString(luaScriptName, luaScriptName,scriptEnv);
 
@@ -139,7 +139,7 @@ public class LuaBaseBehaviour : MonoBehaviour
         }
         if (Time.time - LuaBaseBehaviour.lastGCTime > GCInterval)
         {
-            luaEnv.Tick();
+            lua_Env.Tick();
             LuaBaseBehaviour.lastGCTime = Time.time;
         }
     }
