@@ -1,41 +1,37 @@
-
-
 function Start()
-  print("Start...")
-  local GameObject = CS.UnityEngine.GameObject
-  local SpriteTool = CS.UnityEngine.SpriteTool
-  local Color = CS.UnityEngine.Color
-  local Random = CS.UnityEngine.Random
+    print("Start...")
+    local GameObject = CS.UnityEngine.GameObject
+    local SpriteTool = CS.UnityEngine.SpriteTool
+    local Color = CS.UnityEngine.Color
+    local Random = CS.UnityEngine.Random
 
-  local btn1 = GameObject.Find("btn1");
-  local btn2 = GameObject.Find("btn2");
-  local image = GameObject.Find("Image");
+    local btn1 = GameObject.Find("btn1");
+    local btn2 = GameObject.Find("btn2");
+    local image = GameObject.Find("Image");
 
+    btn1:GetComponent("Button").onClick:AddListener(function()
+        print("clicked, btn1")
+        btn1:GetComponent("Image").color = Color(Random.Range(0.0, 1.0), Random.Range(0.0, 1.0), Random.Range(0.0, 1.0), 1)
+    end)
 
-  btn1:GetComponent("Button").onClick:AddListener(function()
-    print("clicked, btn1")
-    btn1:GetComponent("Image").color = Color(Random.Range(0.0,1.0),Random.Range(0.0,1.0),Random.Range(0.0,1.0),1)
-  end)
+    btn2:GetComponent("Button").onClick:AddListener(function()
+        print("clicked, btn2")
+        local sprite = SpriteTool.ResourcesSprite("ic_launcher")
+        image:GetComponent("Image").sprite = sprite;
 
+    end)
 
-   btn2:GetComponent("Button").onClick:AddListener(function()
-     print("clicked, btn2")
-     local sprite = SpriteTool.ResourcesSprite("ic_launcher")
-     image:GetComponent("Image").sprite = sprite;
-     
-   end)
- 
-  SayHello()
+    SayHello()
+    
 end
 
 function SayHello()
-  print("SayHello666")
+    print("SayHello666")
 end
 
 function onDestroy()
     print("onDestroy...")
 end
-
 
 function awake()
     print("awake...")
@@ -55,7 +51,7 @@ end
 
 function OnEnable()
     print('OnEnable...')
-     
+
 end
 
 function onDisable()
