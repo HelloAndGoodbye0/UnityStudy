@@ -5,6 +5,7 @@ function Start()
   local GameObject = CS.UnityEngine.GameObject
   local SpriteTool = CS.UnityEngine.SpriteTool
   local Color = CS.UnityEngine.Color
+  local Random = CS.UnityEngine.Random
 
   local btn1 = GameObject.Find("btn1");
   local btn2 = GameObject.Find("btn2");
@@ -12,8 +13,8 @@ function Start()
 
 
   btn1:GetComponent("Button").onClick:AddListener(function()
-    print("clicked, btn1",CS.UnityEngine.Color.blue)
-    btn1:GetComponent("Image").color = Color(1,0,0,1)
+    print("clicked, btn1")
+    btn1:GetComponent("Image").color = Color(Random.Range(0.0,1.0),Random.Range(0.0,1.0),Random.Range(0.0,1.0),1)
   end)
 
 
@@ -24,7 +25,7 @@ function Start()
      
    end)
  
-     SayHello()
+  SayHello()
 end
 
 function SayHello()
