@@ -36,6 +36,8 @@ public class TestScene : MonoBehaviour
 
 
 
+        });
+
         //图片切换
         btn2.GetComponent<Button>().onClick.AddListener(delegate () {
 
