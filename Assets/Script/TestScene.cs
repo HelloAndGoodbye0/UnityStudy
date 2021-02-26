@@ -17,6 +17,7 @@ public class TestScene : MonoBehaviour
         var btn1 = GameObject.Find("btn1");
         var btn2 = GameObject.Find("btn2");
         var image = GameObject.Find("Image");
+        var Text = GameObject.Find("Text");
 
         //按钮点击事件
         btn1.GetComponent<Button>().onClick.AddListener(delegate() {
@@ -24,7 +25,16 @@ public class TestScene : MonoBehaviour
             Debug.Log("btn1");
             StartCoroutine(GetRequest());
             StartCoroutine(DownloaAssetBundle());
-        });
+
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                var playerCls = new AndroidJavaClass("com.example.mylibrary.TestModule");
+                string SayHello = playerCls.CallStatic<string>("SayHello");
+                Debug.Log("SayHello" + SayHello);
+                Text.GetComponent<Text>().text = SayHello;
+            }
+
+
 
         //图片切换
         btn2.GetComponent<Button>().onClick.AddListener(delegate () {
