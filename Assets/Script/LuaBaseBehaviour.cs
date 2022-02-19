@@ -16,22 +16,11 @@ using System.IO;
 public class LuaBaseBehaviour : MonoBehaviour
 {
     public string luaScriptName;
-    //public TextAsset luaScript;
+    public TextAsset luaScript;
 
     internal static LuaEnv lua_Env = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
-    internal const float GCInterval = 1;//1 second 
-
-    private Action luaOnEnable;
-    private Action luaStart;
-    private Action luaFixedUpdate;
-    private Action luaUpdate;
-    private Action luaLateUpdate;
-    private Action luaOnDisable;
-    private Action luaOnDestroy;
-
-
-
+    internal const float GCInterval = 1;//1 second
     private LuaTable scriptEnv;
 
 
@@ -41,11 +30,11 @@ public class LuaBaseBehaviour : MonoBehaviour
         string fliePath = "";
         if (Application.platform == RuntimePlatform.WindowsEditor)//win ±à¼­Æ÷
         {
-            fliePath = Application.dataPath + "/Script/lua/" + flie + ".lua.txt";
+            fliePath = Application.dataPath + "/ScriptLua/" + flie + ".lua.txt";
         }
         else//Ô­Éú
         {
-            fliePath = Application.persistentDataPath + "/Script/lua/" + flie + ".lua.txt";
+            fliePath = Application.persistentDataPath + "/ScriptLua/" + flie + ".lua.txt";
         }
 
         return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(fliePath));
@@ -66,77 +55,57 @@ public class LuaBaseBehaviour : MonoBehaviour
         lua_Env.AddLoader(CustomMyLoader);
 
 
-        string flieName = string.Format("require'{0}'", luaScriptName);// + luaScriptName;
+        string flieName = string.Format(@"require  '{0}'", luaScriptName);// + luaScriptName;
+        Debug.Log(flieName);
         lua_Env.DoString(flieName, luaScriptName, scriptEnv);
-        //luaEnv.DoString(luaScript.text, "LuaTestScript", scriptEnv);
+
+        //lua_Env.DoString(luaScript.text, "LuaTestScript", scriptEnv);
         //XluaCommon.Instance.DoString(luaScriptName, luaScriptName,scriptEnv);
 
-        Action luaAwake = scriptEnv.Get<Action>("awake");
-        scriptEnv.Get("OnEnable", out luaOnEnable);
-        scriptEnv.Get("Start", out luaStart);
-        scriptEnv.Get("FixedUpdate", out luaFixedUpdate);
-        scriptEnv.Get("Update", out luaUpdate);
-        scriptEnv.Get("LateUpdate", out luaLateUpdate);
-        scriptEnv.Get("OnDisable", out luaOnDisable);
-        scriptEnv.Get("onDestroy", out luaOnDestroy);
-
-        if (luaAwake != null)
-        {
-            luaAwake();
-        }
+        CallLuaFunction("awake");
     }
 
-   
+    private void CallLuaFunction(string funcName)
+    {
+        Action func = scriptEnv.Get<Action>(funcName);
+        if (func!=null)
+        {
+            func();
+        }
+
+    }
 
     void OnEnable()
     {
-        if (luaOnEnable != null)
-        {
-            luaOnEnable();
-        }
+        CallLuaFunction("OnEnable");
 
     }
 
     private void OnDisable()
     {
-        if (luaOnDisable != null)
-        {
-            luaOnDisable();
-        }
+        CallLuaFunction("OnDisable");
     }
     void FixedUpdate()
     {
-        if (luaFixedUpdate != null)
-        {
-            luaFixedUpdate();
-        }
+        CallLuaFunction("FixedUpdate");
     }
 
 
     private void LateUpdate()
     {
-        if (luaLateUpdate != null)
-        {
-            luaLateUpdate();
-        }
+        CallLuaFunction("LateUpdate");
     }
 
     // Use this for initialization
     void Start()
     {
-        if (luaStart != null)
-        {
-            luaStart();
-        }
+        CallLuaFunction("Start");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (luaUpdate != null)
-        {
-            luaUpdate();
-        }
+        CallLuaFunction("Update");
         if (Time.time - LuaBaseBehaviour.lastGCTime > GCInterval)
         {
             lua_Env.Tick();
@@ -146,17 +115,7 @@ public class LuaBaseBehaviour : MonoBehaviour
 
     void OnDestroy()
     {
-        if (luaOnDestroy != null)
-        {
-            luaOnDestroy();
-        }
-        luaOnDestroy = null;
-        luaOnDisable = null;
-        luaLateUpdate = null;
-        luaUpdate = null;
-        luaStart = null;
-        luaOnEnable = null;
-        luaFixedUpdate = null;
+        CallLuaFunction("OnDestroy");
         scriptEnv.Dispose();
 
     }

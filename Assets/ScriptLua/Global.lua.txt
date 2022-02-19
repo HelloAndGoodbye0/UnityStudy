@@ -1,0 +1,5 @@
+GameObject = CS.UnityEngine.GameObject
+--SpriteTool = CS.UnityEngine.SpriteTool
+Color = CS.UnityEngine.Color
+Random = CS.UnityEngine.Random
+SceneManager = CS.UnityEngine.SceneManagement.SceneManager

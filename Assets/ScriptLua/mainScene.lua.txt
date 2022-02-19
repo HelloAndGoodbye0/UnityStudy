@@ -1,0 +1,11 @@
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-19 17:46:18
+LastEditTime: 2022-02-19 17:46:19
+--]]
+mainScene = {}
+
+return mainScene

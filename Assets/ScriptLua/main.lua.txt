@@ -1,0 +1,19 @@
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-19 12:49:27
+LastEditTime: 2022-02-19 17:33:38
+--]]
+
+main = {}
+require("global")
+main.Start = function()
+	print("main start")
+	SceneManager.LoadScene("main");
+
+end
+
+
+return main
