@@ -16,25 +16,26 @@ using System.IO;
 public class LuaBaseBehaviour : MonoBehaviour
 {
     public string luaScriptName;
-    public TextAsset luaScript;
 
     internal static LuaEnv lua_Env = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
     internal const float GCInterval = 1;//1 second
     private LuaTable scriptEnv;
+    public TextAsset luaScript;
 
 
     //自定义Load
-      byte[] CustomMyLoader(ref string flie)
+    byte[] CustomMyLoader(ref string file)
     {
+        file = file.Replace(".","/");
         string fliePath = "";
         if (Application.platform == RuntimePlatform.WindowsEditor)//win 编辑器
         {
-            fliePath = Application.dataPath + "/ScriptLua/" + flie + ".lua.txt";
+            fliePath = Application.dataPath + "/ScriptLua/" + file + ".lua.txt";
         }
         else//原生
         {
-            fliePath = Application.persistentDataPath + "/ScriptLua/" + flie + ".lua.txt";
+            fliePath = Application.persistentDataPath + "/ScriptLua/" + file + ".lua.txt";
         }
 
         return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(fliePath));
@@ -55,13 +56,9 @@ public class LuaBaseBehaviour : MonoBehaviour
         lua_Env.AddLoader(CustomMyLoader);
 
 
-        string flieName = string.Format(@"require  '{0}'", luaScriptName);// + luaScriptName;
-        Debug.Log(flieName);
-        lua_Env.DoString(flieName, luaScriptName, scriptEnv);
-
-        //lua_Env.DoString(luaScript.text, "LuaTestScript", scriptEnv);
-        //XluaCommon.Instance.DoString(luaScriptName, luaScriptName,scriptEnv);
-
+        //string flieName = string.Format(@"require  '{0}'", luaScriptName);// + luaScriptName;
+        // lua_Env.DoString(flieName, luaScriptName, scriptEnv);
+        lua_Env.DoString(luaScript.text, luaScriptName, scriptEnv);
         CallLuaFunction("awake");
     }
 
@@ -77,35 +74,35 @@ public class LuaBaseBehaviour : MonoBehaviour
 
     void OnEnable()
     {
-        CallLuaFunction("OnEnable");
+        CallLuaFunction("onEnable");
 
     }
 
     private void OnDisable()
     {
-        CallLuaFunction("OnDisable");
+        CallLuaFunction("onDisable");
     }
     void FixedUpdate()
     {
-        CallLuaFunction("FixedUpdate");
+        CallLuaFunction("fixedUpdate");
     }
 
 
     private void LateUpdate()
     {
-        CallLuaFunction("LateUpdate");
+        CallLuaFunction("lateUpdate");
     }
 
     // Use this for initialization
     void Start()
     {
-        CallLuaFunction("Start");
+        CallLuaFunction("onStart");
     }
 
     // Update is called once per frame
     void Update()
     {
-        CallLuaFunction("Update");
+        CallLuaFunction("update");
         if (Time.time - LuaBaseBehaviour.lastGCTime > GCInterval)
         {
             lua_Env.Tick();
@@ -115,7 +112,7 @@ public class LuaBaseBehaviour : MonoBehaviour
 
     void OnDestroy()
     {
-        CallLuaFunction("OnDestroy");
+        CallLuaFunction("onDestroy");
         scriptEnv.Dispose();
 
     }

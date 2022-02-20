@@ -1,0 +1,18 @@
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-20 18:34:02
+LastEditTime: 2022-02-20 18:34:03
+--]]
+UITool = {}
+UITool.addBtnCall = function (gameObj,call)
+    if  gameObj:GetComponent("Button") then
+        gameObj:GetComponent("Button").onClick:AddListener(function()
+            if call then
+                call()
+            end
+        end)
+    end
+end

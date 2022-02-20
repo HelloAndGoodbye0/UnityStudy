@@ -5,7 +5,6 @@ using XLua;
 public class XLuaMgr : SingletonMono<XLuaMgr>
 {
     private LuaEnv luaEnv = null;
-
     byte[] CustomMyLoader(ref string flie)
     {
         string fliePath = "";
@@ -35,7 +34,6 @@ public class XLuaMgr : SingletonMono<XLuaMgr>
         if (luaEnv == null)
         {
             luaEnv = new LuaEnv();
-
             luaEnv.AddLoader(CustomMyLoader);
         }
     }
@@ -54,5 +52,10 @@ public class XLuaMgr : SingletonMono<XLuaMgr>
         {
             luaEnv.DoString(str);
         }
+    }
+
+    public LuaEnv getLuaEnv()
+    {
+        return luaEnv;
     }
 }

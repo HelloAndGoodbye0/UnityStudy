@@ -1,0 +1,21 @@
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-20 18:20:39
+LastEditTime: 2022-02-20 18:33:42
+--]]
+
+require("utils.global")
+require("utils.UITool")
+
+function onStart()
+    print("loginScene Start",self.name)
+    UITool.addBtnCall(self.transform:Find("btn_login"),function()
+        -- SceneManager.LoadScene("main");
+        local textNode = self.transform:Find("btn_login/Text")
+        local active = textNode.gameObject.activeSelf
+        textNode.gameObject:SetActive(not active )
+    end)
+end

@@ -4,8 +4,29 @@ version:
 Author: liqiang
 email: 497232807@qq.com
 Date: 2022-02-19 17:46:18
-LastEditTime: 2022-02-19 17:46:19
+LastEditTime: 2022-02-20 18:10:38
 --]]
-mainScene = {}
+function awake()
+  
+    UITool.addBtnCall(self.transform:Find("btn_back"),function()
+        SceneManager.LoadScene("login");
+    end)
+end
 
-return mainScene
+function onEnable()
+    print("main onEnable")
+end
+
+function onDisable()
+    print("main onDisable")    
+end
+
+function onStart()
+    print("main onStart")
+end
+
+
+function onDestroy()
+    print("main onDestroy")
+end
+
