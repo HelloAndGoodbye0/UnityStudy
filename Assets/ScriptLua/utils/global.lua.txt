@@ -4,11 +4,13 @@ version:
 Author: liqiang
 email: 497232807@qq.com
 Date: 2022-02-19 17:32:47
-LastEditTime: 2022-02-20 19:07:00
+LastEditTime: 2022-02-22 19:19:27
 --]]
+
 GameObject = CS.UnityEngine.GameObject
 Transform = CS.UnityEngine.Transform
 --SpriteTool = CS.UnityEngine.SpriteTool
 Color = CS.UnityEngine.Color
 Random = CS.UnityEngine.Random
 SceneManager = CS.UnityEngine.SceneManagement.SceneManager
+Text = CS.UnityEngine.Text

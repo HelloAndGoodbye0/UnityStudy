@@ -4,18 +4,40 @@ version:
 Author: liqiang
 email: 497232807@qq.com
 Date: 2022-02-20 18:20:39
-LastEditTime: 2022-02-20 18:33:42
+LastEditTime: 2022-02-22 19:08:39
 --]]
+
 
 require("utils.global")
 require("utils.UITool")
 
+function awake()
+    print("loginScene awake")
+end
+
+
 function onStart()
-    print("loginScene Start",self.name)
+    print("loginScene Start")
     UITool.addBtnCall(self.transform:Find("btn_login"),function()
         -- SceneManager.LoadScene("main");
         local textNode = self.transform:Find("btn_login/Text")
         local active = textNode.gameObject.activeSelf
         textNode.gameObject:SetActive(not active )
     end)
+
+    text:GetComponent(typeof(CS.UnityEngine.UI.Text)).text = "Hello World"
+end
+
+function onEnable()
+    print("loginScene onEnable")
+end
+
+function onDisable()
+    print("loginScene onDisable")    
+end
+
+
+
+function onDestroy()
+    print("loginScene onDestroy")
 end

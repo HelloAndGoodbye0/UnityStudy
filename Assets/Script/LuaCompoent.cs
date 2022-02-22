@@ -13,16 +13,22 @@ using XLua;
 using System;
 using System.IO;
 
-public class LuaBaseBehaviour : MonoBehaviour
+[System.Serializable]
+public class Injection
 {
-    public string luaScriptName;
+    public string name;
+    public GameObject value;
+}
+public class LuaCompoent : MonoBehaviour
+{
+    
 
     internal static LuaEnv lua_Env = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
     internal const float GCInterval = 1;//1 second
-    private LuaTable scriptEnv;
-    public TextAsset luaScript;
+    private LuaTable scriptEnv = null;
 
+    public Injection[] injections;
 
     //×Ô¶¨ÒåLoad
     byte[] CustomMyLoader(ref string file)
@@ -52,24 +58,47 @@ public class LuaBaseBehaviour : MonoBehaviour
         meta.Dispose();
 
         scriptEnv.Set("self", this);
+        foreach (var injection in injections)
+        {
+            scriptEnv.Set(injection.name, injection.value);
+        }
 
         lua_Env.AddLoader(CustomMyLoader);
 
-
+        string luaText = GetLuaAssets();
+        lua_Env.DoString(luaText, this.gameObject.name, scriptEnv);
         //string flieName = string.Format(@"require  '{0}'", luaScriptName);// + luaScriptName;
         // lua_Env.DoString(flieName, luaScriptName, scriptEnv);
-        lua_Env.DoString(luaScript.text, luaScriptName, scriptEnv);
+        //lua_Env.DoString(luaScript.text, luaScriptName, scriptEnv);
         CallLuaFunction("awake");
     }
 
+    private string GetLuaAssets()
+    {
+        string fileName = this.gameObject.name;
+        string filePath = null;
+        string text = null;
+
+        #if UNITY_EDITOR
+                filePath = Application.dataPath + "/ScriptLua/" + fileName + ".lua.txt";
+                if (File.Exists(filePath))
+                {
+                    text = File.ReadAllText(filePath);
+                }
+        #endif
+
+        return text;
+    }
     private void CallLuaFunction(string funcName)
     {
-        Action func = scriptEnv.Get<Action>(funcName);
-        if (func!=null)
+        if (scriptEnv!=null)
         {
-            func();
+            Action func = scriptEnv.Get<Action>(funcName);
+            if (func != null)
+            {
+                func();
+            }
         }
-
     }
 
     void OnEnable()
@@ -103,10 +132,10 @@ public class LuaBaseBehaviour : MonoBehaviour
     void Update()
     {
         CallLuaFunction("update");
-        if (Time.time - LuaBaseBehaviour.lastGCTime > GCInterval)
+        if (Time.time - LuaCompoent.lastGCTime > GCInterval)
         {
             lua_Env.Tick();
-            LuaBaseBehaviour.lastGCTime = Time.time;
+            LuaCompoent.lastGCTime = Time.time;
         }
     }
 

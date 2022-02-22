@@ -293,7 +293,6 @@ GameObject:
   - component: {fileID: 1407489448}
   - component: {fileID: 1407489447}
   - component: {fileID: 1407489446}
-  - component: {fileID: 1407489450}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -384,20 +383,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1407489450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1407489445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa0a2b795c8dc054ebf77f214f176c4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  luaScriptName: mainScene
-  luaScript: {fileID: 4900000, guid: 9efbbeee04d43f2448a1c950ce1ae29d, type: 3}
 --- !u!1 &1436300039
 GameObject:
   m_ObjectHideFlags: 0
