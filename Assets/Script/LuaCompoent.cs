@@ -19,9 +19,10 @@ public class Injection
     public string name;
     public GameObject value;
 }
+[LuaCallCSharp]
 public class LuaCompoent : MonoBehaviour
 {
-    
+
 
     internal static LuaEnv lua_Env = new LuaEnv(); //all lua behaviour shared one luaenv only!
     internal static float lastGCTime = 0;
@@ -33,18 +34,23 @@ public class LuaCompoent : MonoBehaviour
     //自定义Load
     byte[] CustomMyLoader(ref string file)
     {
-        file = file.Replace(".","/");
+        file = file.Replace(".", "/");
         string fliePath = "";
-        if (Application.platform == RuntimePlatform.WindowsEditor)//win 编辑器
-        {
-            fliePath = Application.dataPath + "/ScriptLua/" + file + ".lua.txt";
-        }
-        else//原生
-        {
-            fliePath = Application.persistentDataPath + "/ScriptLua/" + file + ".lua.txt";
-        }
+#if UNITY_EDITOR
+        fliePath = Application.dataPath + "/ScriptLua/" + file.Replace('.', '/') + ".lua.txt";
 
-        return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(fliePath));
+#else
+           fliePath = Application.persistentDataPath + "/ScriptLua/" + file + ".lua.txt";
+        
+#endif
+        if (File.Exists(fliePath))
+        {
+            return File.ReadAllBytes(fliePath);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     void Awake()
@@ -67,9 +73,10 @@ public class LuaCompoent : MonoBehaviour
 
         string luaText = GetLuaAssets();
         lua_Env.DoString(luaText, this.gameObject.name, scriptEnv);
-        //string flieName = string.Format(@"require  '{0}'", luaScriptName);// + luaScriptName;
-        // lua_Env.DoString(flieName, luaScriptName, scriptEnv);
-        //lua_Env.DoString(luaScript.text, luaScriptName, scriptEnv);
+
+        //string flieName = string.Format("require'{0}'", this.gameObject.name);
+        //lua_Env.DoString(flieName, this.gameObject.name, scriptEnv);
+
         CallLuaFunction("awake");
     }
 
@@ -79,19 +86,35 @@ public class LuaCompoent : MonoBehaviour
         string filePath = null;
         string text = null;
 
-        #if UNITY_EDITOR
-                filePath = Application.dataPath + "/ScriptLua/" + fileName + ".lua.txt";
-                if (File.Exists(filePath))
-                {
-                    text = File.ReadAllText(filePath);
-                }
-        #endif
+#if UNITY_EDITOR
+
+        filePath = Application.dataPath + "/ScriptLua/" + fileName + ".lua.txt";
+        if (File.Exists(filePath))
+        {
+            text = File.ReadAllText(filePath);
+        }
+
+#else
+        filePath = Application.persistentDataPath + "/ScriptLua/" + fileName + ".lua.txt";
+        if (File.Exists(filePath))
+        {
+            text = File.ReadAllText(filePath);
+        }
+        else
+        {
+            filePath = Application.streamingAssetsPath + "/ScriptLua/" + fileName + ".lua.txt";
+            if (File.Exists(filePath))
+            {
+                text = File.ReadAllText(filePath);
+            }
+        }
+#endif
 
         return text;
     }
     private void CallLuaFunction(string funcName)
     {
-        if (scriptEnv!=null)
+        if (scriptEnv != null)
         {
             Action func = scriptEnv.Get<Action>(funcName);
             if (func != null)
@@ -146,4 +169,5 @@ public class LuaCompoent : MonoBehaviour
 
     }
 }
+
 

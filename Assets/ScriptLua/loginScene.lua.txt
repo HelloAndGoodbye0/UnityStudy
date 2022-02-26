@@ -10,14 +10,13 @@ LastEditTime: 2022-02-22 19:08:39
 
 require("utils.global")
 require("utils.UITool")
-
 function awake()
     print("loginScene awake")
 end
 
 
 function onStart()
-    print("loginScene Start")
+    print("loginScene onStart",self)
     UITool.addBtnCall(self.transform:Find("btn_login"),function()
         -- SceneManager.LoadScene("main");
         local textNode = self.transform:Find("btn_login/Text")
