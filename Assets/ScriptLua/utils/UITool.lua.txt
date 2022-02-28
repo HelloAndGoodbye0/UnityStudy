@@ -4,11 +4,13 @@ version:
 Author: liqiang
 email: 497232807@qq.com
 Date: 2022-02-20 18:34:02
-LastEditTime: 2022-02-20 18:34:03
+LastEditTime: 2022-02-28 10:50:10
 --]]
+
 UITool = {}
+canvas = nil
 UITool.addBtnCall = function (gameObj,call)
-    if  gameObj:GetComponent("Button") then
+    if gameObj:GetComponent("Button") then
         gameObj:GetComponent("Button").onClick:AddListener(function()
             if call then
                 call()
@@ -16,3 +18,17 @@ UITool.addBtnCall = function (gameObj,call)
         end)
     end
 end
+
+UITool.showAlert = function (title,content,call)
+    local obj = GameObject.Instantiate(Resources.Load("prefabs/alert"))
+    
+    local pos = obj.transform.position
+    obj.transform:SetParent(canvas)
+    print(pos.x,pos.y)
+    
+end
+
+UITool.setCanvas = function (gameObj)
+    canvas = gameObj
+end
+

@@ -4,6 +4,14 @@ version:
 Author: liqiang
 email: 497232807@qq.com
 Date: 2022-02-19 17:32:47
+LastEditTime: 2022-02-28 10:59:26
+--]]
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-19 17:32:47
 LastEditTime: 2022-02-22 19:19:27
 --]]
 
@@ -14,3 +22,6 @@ Color = CS.UnityEngine.Color
 Random = CS.UnityEngine.Random
 SceneManager = CS.UnityEngine.SceneManagement.SceneManager
 Text = CS.UnityEngine.Text
+File = CS.System.IO.File
+Resources = CS.UnityEngine.Resources
+Vector3 = CS.UnityEngine.Vector3
