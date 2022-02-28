@@ -74,7 +74,9 @@ public class LuaCompoent : MonoBehaviour
         lua_Env.AddLoader(CustomMyLoader);
 
         string luaText = GetLuaAssets();
-        lua_Env.DoString(luaText, this.gameObject.name, scriptEnv);
+        string name = this.gameObject.name.Replace("(Clone)", "");
+       
+        lua_Env.DoString(luaText, name, scriptEnv);
 
         //string flieName = string.Format("require'{0}'", this.gameObject.name);
         //lua_Env.DoString(flieName, this.gameObject.name, scriptEnv);
@@ -84,12 +86,12 @@ public class LuaCompoent : MonoBehaviour
 
     private string GetLuaAssets()
     {
-        string fileName = this.gameObject.name;
+        string fileName = this.gameObject.name.Replace("(Clone)", "");
         string filePath = null;
         string text = null;
 
 #if UNITY_EDITOR
-
+        
         filePath = Application.dataPath + "/ScriptLua/" + fileName + ".lua.txt";
         if (File.Exists(filePath))
         {
@@ -170,6 +172,8 @@ public class LuaCompoent : MonoBehaviour
         scriptEnv.Dispose();
 
     }
+
+    
 }
 
 

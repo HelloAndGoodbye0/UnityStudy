@@ -4,14 +4,23 @@ version:
 Author: liqiang
 email: 497232807@qq.com
 Date: 2022-02-20 18:34:02
+LastEditTime: 2022-02-28 19:05:25
+--]]
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-20 18:34:02
 LastEditTime: 2022-02-28 10:50:10
 --]]
 
 UITool = {}
 canvas = nil
 UITool.addBtnCall = function (gameObj,call)
-    if gameObj:GetComponent("Button") then
-        gameObj:GetComponent("Button").onClick:AddListener(function()
+    local btnCom = gameObj:GetComponent("Button")
+    if btnCom then
+        btnCom.onClick:AddListener(function()
             if call then
                 call()
             end
@@ -19,12 +28,38 @@ UITool.addBtnCall = function (gameObj,call)
     end
 end
 
-UITool.showAlert = function (title,content,call)
-    local obj = GameObject.Instantiate(Resources.Load("prefabs/alert"))
+UITool.showAlert = function (title,content,callback)
+    local obj = GameObject.Instantiate(Resources.Load("prefabs/alertView"))
     
     local pos = obj.transform.position
+    obj.name = "alertView"
     obj.transform:SetParent(canvas)
-    print(pos.x,pos.y)
+    
+    local view = obj.transform:Find("view")
+    local titleNode = obj.transform:Find("view/title")
+    local contentNode = obj.transform:Find("view/content")
+    local contentNode = obj.transform:Find("view/content")
+    local btn_yes = obj.transform:Find("view/btns/btn_yes")
+    local btn_no = obj.transform:Find("view/btns/btn_no")
+
+    titleNode:GetComponent(typeof(CS.UnityEngine.UI.Text)).text = title
+    contentNode:GetComponent(typeof(CS.UnityEngine.UI.Text)).text = content
+
+    UITool.addBtnCall(btn_yes,function()
+        if callback then
+            callback(1)
+        end
+        -- view.animation.Play("view_dissmiss");
+        -- GameObject.Destroy(obj)
+    end)
+    UITool.addBtnCall(btn_no,function()
+        if callback then
+            callback(0)
+        end
+        print(view)
+        view:GetComponent(typeof(CS.UnityEngine.Animation)):Play("view_dissmiss");
+        -- GameObject.Destroy(obj)
+    end)
     
 end
 

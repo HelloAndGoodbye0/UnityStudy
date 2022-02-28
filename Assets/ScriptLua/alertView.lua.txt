@@ -1,0 +1,47 @@
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-28 19:47:39
+LastEditTime: 2022-02-28 20:08:51
+--]]
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-28 19:47:39
+LastEditTime: 2022-02-28 19:47:55
+--]]
+
+function awake()
+    -- print("alertView awake")
+    -- print(CS.UnityEngine.Application.persistentDataPath)
+    -- File.WriteAllText(CS.UnityEngine.Application.persistentDataPath.."/test.txt","test")
+
+   
+end
+
+function updateData(title,content,callback)
+    -- local titleNode = self.transform:Find("view/title")
+    -- local contentNode = self.transform:Find("view/content")
+    -- local contentNode = self.transform:Find("view/content")
+    -- local btn_yes = self.transform:Find("view/btns/btn_yes")
+    -- local btn_no = self.transform:Find("view/btns/btn_no")
+
+    -- titleNode:GetComponent(typeof(CS.UnityEngine.UI.Text)).text = title
+    -- contentNode:GetComponent(typeof(CS.UnityEngine.UI.Text)).text = content
+
+    -- UITool.addBtnCall(btn_yes,function()
+    --     if call then
+    --         callback(1)
+    --     end
+    -- end)
+    -- UITool.addBtnCall(btn_no,function()
+    --     if call then
+    --         callback(0)
+    --     end
+    --     GameObject.Destroy(self)
+    -- end)
+end

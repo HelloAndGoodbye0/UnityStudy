@@ -4,6 +4,14 @@ version:
 Author: liqiang
 email: 497232807@qq.com
 Date: 2022-02-20 18:20:39
+LastEditTime: 2022-02-28 19:06:37
+--]]
+--[[
+Descripttion: 
+version: 
+Author: liqiang
+email: 497232807@qq.com
+Date: 2022-02-20 18:20:39
 LastEditTime: 2022-02-28 10:50:25
 --]]
 --[[
@@ -19,7 +27,7 @@ LastEditTime: 2022-02-22 19:08:39
 require("utils.global")
 require("utils.UITool")
 function awake()
-    print("loginScene awake")
+
     -- print(CS.UnityEngine.Application.persistentDataPath)
     -- File.WriteAllText(CS.UnityEngine.Application.persistentDataPath.."/test.txt","test")
     UITool.setCanvas(self.transform.parent)
@@ -27,29 +35,37 @@ end
 
 
 function onStart()
-    print("loginScene onStart",self)
-    UITool.addBtnCall(self.transform.parent:Find("btn_login"),function()
+    local btn_login = self.transform.parent:Find("btn_login")
+    -- print("loginScene onStart",btn_login)
+    UITool.addBtnCall(btn_login,function()
         -- SceneManager.LoadScene("main");
         local textNode = self.transform.parent:Find("btn_login/Text")
         local active = textNode.gameObject.activeSelf
         textNode.gameObject:SetActive(not active )
 
-        UITool.showAlert()
+        UITool.showAlert("我是标题","我是内容6666?",function(index)
+            if index == 1 then
+                print("点击了Yes")
+            else
+                print("点击了NO")
+            end
+            
+        end)
     end)
 
     text:GetComponent(typeof(CS.UnityEngine.UI.Text)).text = "Hello World !"
 end
 
 function onEnable()
-    print("loginScene onEnable")
+    -- print("loginScene onEnable")
 end
 
 function onDisable()
-    print("loginScene onDisable")    
+    -- print("loginScene onDisable")    
 end
 
 
 
 function onDestroy()
-    print("loginScene onDestroy")
+    -- print("loginScene onDestroy")
 end
