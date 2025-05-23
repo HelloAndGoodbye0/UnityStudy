@@ -1,7 +1,7 @@
 
-require "LuaLoader"
+require "luaLoader"
 -- 加载一些必须的模块
-LuaLoader.loadScript("utils.Loger")
+LuaLoader.loadScript("utils.loger")
 LuaLoader.loadScript("utils.utils")
 
 LuaLoader.loadScript("function")
@@ -15,6 +15,6 @@ DLG("obj----",obj.name)
 
 local tab = getObjHolder(obj)
 addBtnClick(tab._btnlogin,function(btn)
-    DLG("btn----",btn)
+    DLG("btn----",btn.name)
 end)
 
