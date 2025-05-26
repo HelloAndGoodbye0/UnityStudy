@@ -1,20 +1,23 @@
 
-require "luaLoader"
--- 加载一些必须的模块
-LuaLoader.loadScript("utils.loger")
-LuaLoader.loadScript("utils.utils")
 
-LuaLoader.loadScript("function")
+-- 加载框架
+require("framework.init")
+-- 加载全局定义
 LuaLoader.loadScript("globalDefine")
 
-DLG("main----")
+
 
 local obj = UE.GameObject.Find("Canvas")
-DLG("obj----",obj.name)
+log("obj----",obj.name)
 
 
 local tab = getObjHolder(obj)
 addBtnClick(tab._btnlogin,function(btn)
-    DLG("btn----",btn.name)
+    log("btn----",btn.name)
+    EventManager.emit("test")
+end)
+
+EventManager.on("test",function(...)
+    log("test----",data)
 end)
 
