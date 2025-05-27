@@ -46,4 +46,4 @@ eventManager.emit = function(eventName, ...)
     end
 end
 
-_G.EventManager = eventManager
+_G.eventManager = eventManager

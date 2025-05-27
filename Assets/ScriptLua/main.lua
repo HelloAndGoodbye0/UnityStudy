@@ -17,7 +17,7 @@ addBtnClick(tab._btnlogin,function(btn)
     EventManager.emit("test")
 end)
 
-EventManager.on("test",function(...)
+eventManager.on("test",function(...)
     log("test----",data)
 end)
 
