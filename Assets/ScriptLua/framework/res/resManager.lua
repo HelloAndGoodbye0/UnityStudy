@@ -1,15 +1,15 @@
 ---资源管理器
 local resManager = {
-    cache = {},  -- 资源缓存
-    cacheBundle = {},  -- AssetBundle缓存
+    cache = {},       -- 资源缓存
+    cacheBundle = {}, -- AssetBundle缓存
 }
 
 --- 获取资源
 --- @param path string 资源路径
 --- @param resType string 资源类型
 --- @param abName string AssetBundle名称，默认为"Resources"
-
-resManager.loadRes = function (path, resType,abName)
+--- @return any 返回加载的资源
+resManager.loadRes = function(path, resType, abName)
     abName = abName or "Resources"
     -- 优先查缓存
     if resManager.cache[abName] and resManager.cache[abName][path] then
@@ -18,21 +18,21 @@ resManager.loadRes = function (path, resType,abName)
 
     -- Resources加载
     if abName == "Resources" then
-        local asset = CS.UnityEngine.Resources.Load(path)
+        local asset = CS.UnityEngine.Resources.Load(path, resType)
         if asset then
             resManager.cache[abName] = resManager.cache[abName] or {}
             resManager.cache[abName][path] = asset
         end
         return asset
-    else -- AssetBundle加载
+    else                                          -- AssetBundle加载
         local ab = resManager.cacheBundle[abName] -- 检查AssetBundle缓存
-        if not ab then 
+        if not ab then
             local ab = CS.UnityEngine.AssetBundle.LoadFromFile(abName)
             resManager.cacheBundle[abName] = ab
         end
-        
+
         if ab then
-            local asset = ab:LoadAsset(path)
+            local asset = ab:LoadAsset(path, resType)
             if asset then
                 resManager.cache[abName] = resManager.cache[abName] or {}
                 resManager.cache[abName][path] = asset
@@ -41,13 +41,13 @@ resManager.loadRes = function (path, resType,abName)
         else
             log("Error: AssetBundle not found: " .. abName)
             return nil
-        end     
+        end
     end
 end
 
 
 --- 卸载bundle资源
---- @param abName string AssetBundle 
+--- @param abName string AssetBundle
 --- @param bUnload boolean 是否卸载所有已加载的对象
 function resManager.unloadBundle(abName, bUnload)
     bUnload = bUnload or true
@@ -66,8 +66,8 @@ function resManager.unloadAllBundle()
     for abName, ab in pairs(resManager.cacheBundle) do
         ab:Unload(true)
     end
-    resManager.cache[abName] = {}
-    resManager.cacheBundle[abName] = nil
+    resManager.cache = {}
+    resManager.cacheBundle = {}
 end
 
 _G.resManager = resManager
