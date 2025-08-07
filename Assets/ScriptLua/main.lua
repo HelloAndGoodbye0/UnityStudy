@@ -14,10 +14,10 @@ log("obj----",obj.name)
 local tab = getObjHolder(obj)
 addBtnClick(tab._btnlogin,function(btn)
     log("btn----",btn.name)
-    EventManager.emit("test")
+    EventManager.emit("test","111","333")
 end)
 
-eventManager.on("test",function(...)
-    log("test----",data)
+EventManager.on("test",function(arg1,arg2)
+    log("testEvent",arg1,arg2)
 end)
 

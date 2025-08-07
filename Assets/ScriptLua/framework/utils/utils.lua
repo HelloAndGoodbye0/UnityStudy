@@ -12,7 +12,6 @@ function GoGetButton(obj)
 end
 
 
----获取组件
 ---@param obj 对象
 ---@param tp 组件类型
 function GoGetComponent(obj,tp)
